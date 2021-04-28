@@ -1,7 +1,3 @@
-<?php
-
-declare(strict_types = 1);
-
 namespace Graphpinator\Exception;
 
 abstract class GraphpinatorBase extends \Exception implements \JsonSerializable

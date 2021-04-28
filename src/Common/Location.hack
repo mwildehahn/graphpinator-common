@@ -1,7 +1,3 @@
-<?php
-
-declare(strict_types = 1);
-
 namespace Graphpinator\Common;
 
 final class Location implements \JsonSerializable
