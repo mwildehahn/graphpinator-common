@@ -9,4 +9,3 @@ ADD . /app
 WORKDIR /app
 
 RUN composer install
-RUN ./vendor/bin/hh-autoload
