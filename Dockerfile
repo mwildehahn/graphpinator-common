@@ -8,4 +8,7 @@ ENV HHVM_VERSION=4.56.6
 ADD . /app
 WORKDIR /app
 
+RUN composer install
+RUN ./vendor/bin/hh-autoload
+
 ENTRYPOINT /bin/bash
