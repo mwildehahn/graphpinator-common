@@ -2,7 +2,6 @@ namespace Graphpinator\Common;
 
 final class Location implements \JsonSerializable
 {
-    use \Nette\SmartObject;
 
     private int $line;
     private int $column;
@@ -13,7 +12,7 @@ final class Location implements \JsonSerializable
         $this->column = $column;
     }
 
-    public function jsonSerialize() : array
+    public function jsonSerialize() : dict<string, int>
     {
         return [
             'line' => $this->line,

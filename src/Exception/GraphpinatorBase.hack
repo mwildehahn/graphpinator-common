@@ -4,7 +4,7 @@ abstract class GraphpinatorBase extends \Exception implements \JsonSerializable
 {
     public const MESSAGE = '';
 
-    protected array $messageArgs = [];
+    protected vec<string> $messageArgs = [];
     protected ?\Graphpinator\Common\Location $location = null;
     protected ?\Graphpinator\Common\Path $path = null;
     protected ?array $extensions = null;
@@ -35,14 +35,14 @@ abstract class GraphpinatorBase extends \Exception implements \JsonSerializable
         return $this;
     }
 
-    public static function notOutputableResponse() : array
+    public static function notOutputableResponse() : dict<string, string>
     {
-        return [
+        return dict[
             'message' => 'Server responded with unknown error.',
         ];
     }
 
-    final public function jsonSerialize() : array
+    final public function jsonSerialize() : dict<string, mixed>
     {
         if (!$this->isOutputable()) {
             return self::notOutputableResponse();

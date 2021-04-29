@@ -4,9 +4,9 @@ final class Path implements \JsonSerializable
 {
     use \Nette\SmartObject;
 
-    private array $path;
+    private vec<string> $path;
 
-    public function __construct(array $path = [])
+    public function __construct(vec<string> $path = [])
     {
         $this->path = $path;
     }
@@ -25,7 +25,7 @@ final class Path implements \JsonSerializable
         return $this;
     }
 
-    public function jsonSerialize() : array
+    public function jsonSerialize() : vec<string>
     {
         return $this->path;
     }
