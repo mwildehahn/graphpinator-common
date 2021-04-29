@@ -1,32 +1,27 @@
 namespace Graphpinator\Common;
 
-final class Path implements \JsonSerializable
-{
-    use \Nette\SmartObject;
+use namespace HH\Lib\Vec;
 
+final class Path implements \JsonSerializable {
     private vec<string> $path;
 
-    public function __construct(vec<string> $path = [])
-    {
+    public function __construct(vec<string> $path = vec[]) {
         $this->path = $path;
     }
 
-    public function add(string $pathItem) : self
-    {
+    public function add(string $pathItem): this {
         $this->path[] = $pathItem;
 
         return $this;
     }
 
-    public function pop() : self
-    {
-        \array_pop($this->path);
+    public function pop(): this {
+        $this->path = Vec\drop($this->path, 1);
 
         return $this;
     }
 
-    public function jsonSerialize() : vec<string>
-    {
+    public function jsonSerialize(): vec<string> {
         return $this->path;
     }
 }

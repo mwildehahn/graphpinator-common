@@ -1,62 +1,49 @@
 namespace Graphpinator\Exception;
 
-abstract class GraphpinatorBase extends \Exception implements \JsonSerializable
-{
-    public const MESSAGE = '';
-
-    protected vec<string> $messageArgs = [];
+abstract class GraphpinatorBase extends \Exception implements \JsonSerializable {
+    protected vec<string> $messageArgs = vec[];
     protected ?\Graphpinator\Common\Location $location = null;
     protected ?\Graphpinator\Common\Path $path = null;
-    protected ?array $extensions = null;
+    protected ?vec<string> $extensions = null;
 
-    public function __construct()
-    {
-        parent::__construct(\sprintf(static::MESSAGE, ...$this->messageArgs));
-    }
-
-    public function setLocation(\Graphpinator\Common\Location $location) : static
-    {
+    public function setLocation(\Graphpinator\Common\Location $location): this {
         $this->location = $location;
 
         return $this;
     }
 
-    public function setPath(\Graphpinator\Common\Path $path) : static
-    {
+    public function setPath(\Graphpinator\Common\Path $path): this {
         $this->path = $path;
 
         return $this;
     }
 
-    public function setExtensions(array $extensions) : static
-    {
+    public function setExtensions(vec<string> $extensions): this {
         $this->extensions = $extensions;
 
         return $this;
     }
 
-    public static function notOutputableResponse() : dict<string, string>
-    {
+    public static function notOutputableResponse(): dict<string, string> {
         return dict[
             'message' => 'Server responded with unknown error.',
         ];
     }
 
-    final public function jsonSerialize() : dict<string, mixed>
-    {
+    final public function jsonSerialize(): dict<string, mixed> {
         if (!$this->isOutputable()) {
             return self::notOutputableResponse();
         }
 
-        $result = [
+        $result = dict[
             'message' => $this->getMessage(),
         ];
 
-        if ($this->location instanceof \Graphpinator\Common\Location) {
-            $result['locations'] = [$this->location];
+        if ($this->location is \Graphpinator\Common\Location) {
+            $result['locations'] = vec[$this->location];
         }
 
-        if ($this->path instanceof \Graphpinator\Common\Path) {
+        if ($this->path is \Graphpinator\Common\Path) {
             $result['path'] = $this->path;
         }
 
@@ -67,8 +54,7 @@ abstract class GraphpinatorBase extends \Exception implements \JsonSerializable
         return $result;
     }
 
-    public function isOutputable() : bool
-    {
+    public function isOutputable(): bool {
         return false;
     }
 }
