@@ -10,5 +10,3 @@ WORKDIR /app
 
 RUN composer install
 RUN ./vendor/bin/hh-autoload
-
-ENTRYPOINT /bin/bash
